@@ -1,16 +1,13 @@
 public class Node {
-    public static final String SIR_S = "S";
-    public static final String SIR_I = "I";
-    public static final String SIR_R = "R";
     private String nodeName;
-    private String SIRstate;
+    private SIRState SIRstate;
     public Node() {
-        SIRstate = Node.SIR_S;
+        SIRstate = SIRState.S;
     }
 
     public Node(String nodeName) {
         this.nodeName = nodeName;
-        SIRstate = Node.SIR_S;
+        SIRstate = SIRState.S;
     }
 
     public String getName() {
@@ -21,11 +18,22 @@ public class Node {
         this.nodeName = nodeName;
     }
 
-    public String getSIRstate() {
+    public SIRState getSIRstate() {
         return SIRstate;
     }
 
-    public void setSIRstate(String SIRstate) {
+    public void setSIRstate(SIRState SIRstate) {
         this.SIRstate = SIRstate;
+    }
+
+    public void toggleSIRstate() {
+        switch (getSIRstate().name()){
+            case ("S"):
+                this.SIRstate = SIRState.I;
+                break;
+            case ("I"):
+                this.SIRstate = SIRState.R;
+                break;
+        }
     }
 }
