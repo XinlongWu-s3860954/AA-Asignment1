@@ -88,7 +88,7 @@ public class AdjacencyList extends AbstractGraph
         // Implement me!
         NodeList vertex = getVertex(vertLabel);
         int width = vertex.getLength();
-        String kHopneighbours[] = vertex.getAllNodeName(vertLabel);
+        String kHopneighbours[] = vertex.getAllNodeName();
         if(k==0){
             return new String[0];
         }else if(k>1){
@@ -100,9 +100,13 @@ public class AdjacencyList extends AbstractGraph
                     kHopneighbours[kHopneighbours.length-neighbours.length+i] = neighbours[i];
                 }
             }
-            Set set = new HashSet(Arrays.asList(kHopneighbours));
-            kHopneighbours = (String [])set.toArray(new String[0]);
-            kHopneighbours = Arrays.copyOfRange(kHopneighbours,1,kHopneighbours.length);
+            NodeList nodeList = new NodeList();
+            for (String node : kHopneighbours) {
+                if(!node.equals(vertLabel)&&nodeList.getNodeIndex(node)<0){
+                    nodeList.addNode(node);
+                }
+            }
+            kHopneighbours =  nodeList.getAllNodeName();
         }
 
         return kHopneighbours;
@@ -151,7 +155,7 @@ public class AdjacencyList extends AbstractGraph
     private void resizeVertexList(){
         maxSizeOfVertex *= 2;
         NodeList[] newVertexList = new NodeList[maxSizeOfVertex];
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length-1; i++) {
             newVertexList[i] = vertexList[i];
         }
         vertexList = newVertexList;

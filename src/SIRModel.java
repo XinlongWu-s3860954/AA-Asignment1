@@ -9,18 +9,15 @@ import java.util.*;
 public class SIRModel
 {
     int maxRandomValue = 100;
-    Map infected;
-    Map recovered;
-    Map newInfected;
-    Map newRecover;
+    Map<String,SIRState> infected;
+    Map<String,SIRState> recovered;
+    Map<String,SIRState> newInfected;
+    Map<String,SIRState> newRecover;
     /**
      * Default constructor, modify as needed.
      */
     public SIRModel() {
-        infected = new HashMap<String,SIRModel>();
-        recovered = new HashMap<String,SIRModel>();
-        newInfected = new HashMap<String,SIRModel>();
-        newRecover = new HashMap<String,SIRModel>();
+
     } // end of SIRModel()
 
 
@@ -36,6 +33,11 @@ public class SIRModel
     public void runSimulation(ContactsGraph graph, String[] seedVertices,
         float infectionProb, float recoverProb, PrintWriter sirModelOutWriter)
     {
+        infected = new HashMap<String,SIRState>();
+        recovered = new HashMap<String,SIRState>();
+        newInfected = new HashMap<String,SIRState>();
+        newRecover = new HashMap<String,SIRState>();
+
         // IMPLEMENT ME!
         for (String ver : seedVertices) {
             infected.put(ver,SIRState.I);

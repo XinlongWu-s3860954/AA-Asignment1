@@ -45,7 +45,7 @@ public class NodeList {
         }
     }
 
-    public String[] getAllNodeName(String nodeName) {
+    public String[] getAllNodeName() {
         String allNodeName[] = new String[0];
         if(length>=0){
             allNodeName = new String[length];
@@ -58,7 +58,7 @@ public class NodeList {
 
     public int getNodeIndex(String nodeName) {
         for (int i = 0; i < length; i++) {
-            if(nodeName.equals(list[i].getName())){
+            if(nodeName.toUpperCase().equals(list[i].getName())){
                 return i;
             }
         }
@@ -86,6 +86,18 @@ public class NodeList {
         }
     }
 
+//    public void deleteNode(int nodeIndex){
+//        if(nodeIndex>=0&&nodeIndex<length){
+//            list[nodeIndex] = null;
+//            for (int i = 0; i < length-1; i++) {
+//                if(list[i]==null){
+//                    list[i] = list[i+1];
+//                    list[i+1] = null;
+//                }
+//            }
+//            length--;
+//        }
+//    }
     private void resizeList(){
         maxListSize *= 2;
         Node[] newList = new Node[maxListSize];
