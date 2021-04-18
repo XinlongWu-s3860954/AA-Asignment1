@@ -9,7 +9,7 @@ public class Evaluator {
 
 	public static ContactsGraph randomGen(int numV, String type, double p) {
 		ContactsGraph graph = null;
-		Random r = new Random();
+		Random r = new Random(10);
 		switch(type) {
 		case "adjlist":
 			graph = new AdjacencyList();

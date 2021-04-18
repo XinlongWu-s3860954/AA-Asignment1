@@ -21,6 +21,8 @@ import joptsimple.OptionSet;
  */
 public class RmitCovidModelling
 {
+	private static double STTimer;
+	private static double ETTimer;
 	/** Name of class, used in error messages. */
 	protected static final String progName = "RmitCovidModelling";
 
@@ -88,9 +90,18 @@ public class RmitCovidModelling
 			String command = tokens[0];
 
 			try {
+				double startTime = System.nanoTime();    //get start time
+
 				// determine which operation to execute
 				switch (command.toUpperCase()) {
 					// add vertex
+					case "ST":
+						RmitCovidModelling.STTimer = System.nanoTime();
+						break;
+					case "ET":
+						RmitCovidModelling.ETTimer = System.nanoTime();
+						System.out.println("Value of STTimer is : \n" + (RmitCovidModelling.ETTimer - RmitCovidModelling.STTimer)/1000000 + "ms");
+						break;
 					case "AV":
 						if (tokens.length == 2) {
 							graph.addVertex(tokens[1]);
@@ -186,6 +197,9 @@ public class RmitCovidModelling
 					default:
 						printErrorMsg("Unknown command.");
 				} // end of switch()
+
+				double endTime = System.nanoTime();		//get end time
+				System.out.println("time costs is : \n" + (endTime - startTime)/1000000 + "ms");
 			}
 			catch (IllegalArgumentException e) {
 				printErrorMsg(e.getMessage());
@@ -276,6 +290,8 @@ public class RmitCovidModelling
 					vertNum = Integer.parseInt(tokens[1]);
 				}
 
+				long startTime = System.currentTimeMillis();    //get start time
+
 				boolean bVertexPhrase = true;
 		    	while ((line = reader.readLine()) != null) {
 					// check if switch to edge phrase, which means line is *Edges
@@ -297,6 +313,10 @@ public class RmitCovidModelling
 						graph.addEdge(srcLabel, tarLabel);
 					}
 		    	}
+
+				long endTime = System.currentTimeMillis();		//get end time
+
+				System.out.println("time costs with data structure "+ implementationType + "\n" + (endTime - startTime) + "ms");
 			}
 			catch (FileNotFoundException ex) {
 				printErrorMsg("File " + args[1] + " not found.");
